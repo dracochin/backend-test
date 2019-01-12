@@ -1,0 +1,9 @@
+module.exports = {
+  db: {
+    server: "127.0.0.1:27017",
+    database: "backend"
+  },
+  backend: {
+    port: "5001"
+  }
+};
