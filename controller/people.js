@@ -12,9 +12,12 @@ function calculateScore(query, p) {
     1 - Math.abs((query.longitude - p.longitude) / p.longitude);
   const income_similarity =
     1 - Math.abs((query.monthlyIncome - p.income) / p.income);
-  const experienced_similarity = 0;
-  if (query.experienced == p.experienced) experienced_similarity = 1;
-
+  let experienced_similarity = 0;
+  if (query.experienced == "false") {
+    experienced_similarity = p.experienced ? 0 : 1;
+  } else if (query.experienced == "true") {
+    experienced_similarity = p.experienced ? 1 : 0;
+  }
   return (
     (age_similarity +
       lat_similarity +
@@ -24,7 +27,7 @@ function calculateScore(query, p) {
     5
   );
 }
-
+exports.calculateScore = calculateScore;
 exports.likeyou = (req, res) => {
   let { query } = req;
 
