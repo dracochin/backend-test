@@ -8,15 +8,15 @@ The app is deploy here:
 http://35.247.179.8/people-like-you?age=23&latitude=40.71667&longitude=19.56667&monthlyIncome=5500&experienced=false
 ```
 
-##Description
+## Description
 
 1.  To improve the performance and scalability, I import the CSV data to MongoDB
 2.  The current similarity score is calculated real-time. The performance would be worse if the data size increase. The better solution is to have a cron job to pre-calculate the score.
 
-##prerequisite
+## prerequisite
 MongoDB
 
-##App deployment
+## App deployment
 
 1.  clone from repository
 
@@ -43,4 +43,9 @@ node import.js
 
 ```
 node server.js
+```
+
+## App Testing
+```
+node test
 ```
