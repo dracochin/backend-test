@@ -47,7 +47,17 @@ exports.likeyou = (req, res) => {
     result.sort(function(a, b) {
       return b.score - a.score;
     });
-    res.json({ peopleLikeYou: result.slice(0, 10) });
+    res.json({
+      peopleLikeYou: result.slice(0, 10).map(r => ({
+        name: r.name,
+        age: r.age,
+        latitude: r.latitude,
+        longitude: r.longitude,
+        monthlyIncome: r.income,
+        experienced: r.experienced,
+        score: r.score
+      }))
+    });
   });
 };
 exports.calculateScore = calculateScore;
