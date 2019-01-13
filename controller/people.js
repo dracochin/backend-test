@@ -27,23 +27,28 @@ function calculateScore(query, p) {
     5
   );
 }
-exports.calculateScore = calculateScore;
+
+function searchPeopleWithScore(query) {
+  return People.find().then(rs => {
+    return rs.map(function(row) {
+      row = row.toObject();
+      row.score = calculateScore(query, row);
+      return row;
+    });
+  });
+}
+
 exports.likeyou = (req, res) => {
   let { query } = req;
-
-  People.find().then(rs => {
-    let result = rs
-      .map(function(row) {
-        row = row.toObject();
-        row.score = calculateScore(query, row);
-        return row;
-      })
-      .filter(function(row) {
-        return row.score && row.score > 0;
-      });
+  searchPeopleWithScore(query).then(rs => {
+    let result = rs.filter(function(row) {
+      return row.score && row.score > 0;
+    });
     result.sort(function(a, b) {
       return b.score - a.score;
     });
     res.json({ peopleLikeYou: result.slice(0, 10) });
   });
 };
+exports.calculateScore = calculateScore;
+exports.searchPeopleWithScore = searchPeopleWithScore;
